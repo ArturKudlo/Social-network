@@ -3,14 +3,18 @@ import s from "./MyPosts.module.css";
 import Post from "./Post/Post";
 
 const MyPosts = (props: any) => {
-  let posts = [
-    { id: 1, message: "Hi, how are you?", likesCount: 20 },
-    { id: 2, message: "I's my first post", likesCount: 15 },
-  ];
-
-  let postsElements = posts.map((p) => {
+  let postsElements = props.posts.map((p: any) => {
     return <Post message={p.message} likesCount={p.likesCount} />;
   });
+
+  let newPostElement: any = React.createRef();
+  let addPost = () => {
+    // @ts-ignore
+    // let text = document.getElementById("test").value;
+    let text = newPostElement.current.value;
+    props.addPost(text);
+    newPostElement.current.value = "";
+  };
 
   return (
     <div>
@@ -18,10 +22,10 @@ const MyPosts = (props: any) => {
         <h3>My posts</h3>
         <div>
           <div>
-            <textarea></textarea>
+            <textarea ref={newPostElement}></textarea>
           </div>
           <div>
-            <button>Add post</button>
+            <button onClick={addPost}>Add post </button>
           </div>
         </div>
         <div className={s.posts}>{postsElements}</div>
