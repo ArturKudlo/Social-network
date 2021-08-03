@@ -7,13 +7,15 @@ const MyPosts = (props: any) => {
     return <Post message={p.message} likesCount={p.likesCount} />;
   });
 
-  let newPostElement: any = React.createRef();
+  let newPostElement = React.createRef<HTMLTextAreaElement>();
   let addPost = () => {
     // @ts-ignore
     // let text = document.getElementById("test").value;
-    let text = newPostElement.current.value;
-    props.addPost(text);
-    newPostElement.current.value = "";
+    if (newPostElement.current) {
+      let text = newPostElement.current?.value;
+      props.addPost(text);
+      newPostElement.current.value = "";
+    }
   };
 
   return (
@@ -25,7 +27,7 @@ const MyPosts = (props: any) => {
             <textarea ref={newPostElement}></textarea>
           </div>
           <div>
-            <button onClick={addPost}>Add post </button>
+            <button onClick={addPost}>Add post</button>
           </div>
         </div>
         <div className={s.posts}>{postsElements}</div>
