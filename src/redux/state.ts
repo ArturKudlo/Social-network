@@ -2,6 +2,7 @@ let rerenderEntireTree = (state: any) => {
   console.log("state was changed");
 };
 
+
 type MessagType = {
   id: number;
   message: string;
